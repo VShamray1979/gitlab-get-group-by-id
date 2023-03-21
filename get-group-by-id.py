@@ -34,7 +34,7 @@ def clone_projects(parent_path, group):
     os.makedirs(group_path)
 
   # Clone the projects in the group
-  for project in group.projects.list():
+  for project in group.projects.list(get_all=True):
     project_path = os.path.join(group_path, project.path)
     git_path = os.path.join(project_path, ".git")
     if not os.path.exists(git_path):
@@ -44,7 +44,7 @@ def clone_projects(parent_path, group):
       print(f"Project '{project.name}' already exist {project_path}")
 
   # Recursively clone projects in subgroups
-  for subgroup in group.subgroups.list():
+  for subgroup in group.subgroups.list(get_all=True):
     subgroup_path = os.path.join(group_path, subgroup.path)
     clone_projects(subgroup_path, subgroup)
 
