@@ -40,13 +40,12 @@ def clone_projects(parent_path, group):
     if not os.path.exists(git_path):
       print(f"Cloning project {project_path}")
       os.system(f"git clone {project.ssh_url_to_repo} {project_path}")
-    else: 
+    else:
       print(f"Project '{project.name}' already exist {project_path}")
 
   # Recursively clone projects in subgroups
   for subgroup in group.subgroups.list(get_all=True):
-    subgroup_path = os.path.join(group_path, subgroup.path)
-    clone_projects(subgroup_path, subgroup)
+    clone_group_projects(group_path, subgroup.id)
 
 def clone_group_projects(parent_path, group_id):
   try:
